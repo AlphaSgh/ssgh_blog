@@ -18,4 +18,82 @@
         from tb_admin_user
         where login_user_name = #{userName, jdbcType=VARCHAR} AND login_password = #{password, jdbcType=VARCHAR} AND locked = 0
     </select>
+
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select <include refid="Base_Column_list"></include>
+        from tb_admin_user
+        where admin_user_id = #{adminUserId,jdbcType=INTEGER}
+    </select>
+
+    <insert id="insert" parameterType="com.ssgh.blog.entity.AdminUser">
+        insert into tb_admin_user (admin_user_id, login_user_name, login_password, nick_name, locked)
+        values (#{adminUserId,jdbcType=INTEGER}, #{loginUserName,jdbcType=VARCHAR}, #{loginPassword,jdbcType=VARCHAR},
+                #{nickName,jdbcType=VARCHAR}, #{locked,jdbcType=TINYINT})
+    </insert>
+
+    <insert id="insertSelective" parameterType="com.ssgh.blog.entity.AdminUser">
+        insert into tb_admin_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="adminUserId != null">
+                admin_user_id
+            </if>
+            <if test="loginUserName != null">
+                login_user_name
+            </if>
+            <if test="loginPassword != null">
+                login_password
+            </if>
+            <if test="nickName != null">
+                nick_name
+            </if>
+            <if test="locked">
+                locked
+            </if>
+        </trim>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="adminUserId != null">
+                #{adminUserId,jdbcType=INTEGER}
+            </if>
+            <if test="loginUserName != null">
+                #{loginUserName,jdbcType=VARCHAR}
+            </if>
+            <if test="loginPassword != null">
+                #{loginPassword,jdbcType=VARCHAR}
+            </if>
+            <if test="nickName != null">
+                #{nickName,jdbcType=VARCHAR}
+            </if>
+            <if test="locked">
+                #{locked,jdbcType=TINYINT}
+            </if>
+        </trim>
+    </insert>
+
+    <update id="updateByPrimaryKey" parameterType="com.ssgh.blog.entity.AdminUser">
+        update tb_admin_user
+        set login_user_name = #{loginUserName,jdbcType=VARCHAR},
+            login_password = #{loginPassword,jdbcType=VARCHAR},
+            nick_name = #{nickName,jdbcType=VARCHAR},
+            locked = #{locked,jdbcType=TINYINT}
+        where admin_user_id = #{adminUserId,jdbcType=INTEGER}
+    </update>
+
+    <update id="updateByPrimaryKeySelective" parameterType="com.ssgh.blog.entity.AdminUser">
+        update tb_admin_user
+        <set>
+            <if test="loginUserName != null">
+                login_user_name = #{loginUserName,jdbcType=VARCHAR},
+            </if>
+            <if test="loginPassword != null">
+                login_password = #{loginPassword,jdbcType=VARCHAR},
+            </if>
+            <if test="nickName != null">
+                nick_name = #{nickName,jdbcType=VARCHAR},
+            </if>
+            <if test="locked">
+                locked = #{locked,jdbcType=TINYINT}
+            </if>
+        </set>
+        where admin_user_id = #{adminUserId,jdbcType=INTEGER}
+    </update>
 </mapper>
