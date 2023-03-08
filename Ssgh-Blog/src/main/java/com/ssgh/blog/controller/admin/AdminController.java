@@ -1,4 +1,4 @@
-package com.ssgh.blog.controller;
+package com.ssgh.blog.controller.admin;
 
 import cn.hutool.captcha.ShearCaptcha;
 import com.ssgh.blog.entity.AdminUser;
